@@ -1,7 +1,9 @@
 package br.com.indracompany.gestaoalunos.resources;
 
-import br.com.indracompany.gestaoalunos.model.Aluno;
-import br.com.indracompany.gestaoalunos.repository.Alunos;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import br.com.indracompany.gestaoalunos.model.Aluno;
+import br.com.indracompany.gestaoalunos.repository.Alunos;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api
 @RestController
 @RequestMapping(path = "/api/alunos")
 public class AlunoResource {
@@ -25,18 +29,21 @@ public class AlunoResource {
     @Autowired
     private Alunos alunosRepository;
 
+    @ApiOperation("Cadastra alunos, um por vez")
     @PostMapping
     public ResponseEntity<Aluno> save(@RequestBody Aluno aluno) {
         alunosRepository.save(aluno);
         return new ResponseEntity<>(aluno, HttpStatus.OK);
     }
 
+    @ApiOperation("Consulta todos os alunos, retorna uma lista")
     @GetMapping
     public ResponseEntity<List<Aluno>> getAll() {
         List<Aluno> alunos = alunosRepository.findAll();
         return new ResponseEntity<>(alunos, HttpStatus.OK);
     }
-
+    
+    @ApiOperation("Consulta um aluno por id, retorna o aluno")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Optional<Aluno>> getById(@PathVariable Long id) {
         Optional<Aluno> aluno;
@@ -48,6 +55,7 @@ public class AlunoResource {
         }
     }
 
+    @ApiOperation("Exclui um aluno por id, retorna status http")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Optional<Aluno>> deleteById(@PathVariable Long id) {
         try {
@@ -58,6 +66,7 @@ public class AlunoResource {
         }
     }
 
+    @ApiOperation("Atualiza um aluno por id, retorna o aluno")
     @PutMapping(path = "/{id}")
     public ResponseEntity<Aluno> update(@PathVariable Long id, @RequestBody Aluno alunoAtualizado) {
         return alunosRepository.findById(id)
