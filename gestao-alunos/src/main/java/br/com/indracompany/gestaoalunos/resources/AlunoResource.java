@@ -78,4 +78,5 @@ public class AlunoResource {
             return ResponseEntity.ok().body(alunoAtual);
         }).orElse(ResponseEntity.notFound().build());
     }
+
 }
