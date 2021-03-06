@@ -30,9 +30,6 @@ public class Aluno {
 	@NotBlank(message = "Nome é obrigatório!")
 	private String nome;
 
-
-	@NotBlank(message = "Nota é obrigatória")
-
 	@PositiveOrZero(message = "Nota é obrigatória")
 	private Integer nota;
 
