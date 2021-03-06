@@ -31,7 +31,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @Api
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "/api/alunos")
 public class AlunoResource {
