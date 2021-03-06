@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +24,7 @@ public class Aluno {
 	@NotBlank(message = "Nome é obrigatório!")
 	private String nome;
 
-	@NotBlank(message = "Nota é obrigatória")
+	@Positive(message = "Nota é obrigatória")
 	private Integer nota;
 
 }
